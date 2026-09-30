@@ -1,34 +1,25 @@
-# Registro de Observacion Astronomica - Version 3.0
+# Registro de Observacion Astronomica - Version 4.0
 
 MINUTOS_POR_HORA = 60
 
 
-# Nuevo en Version 3.0:
-# Funcion para convertir los minutos de observacion a horas
+# Version 3.0: convertir los minutos a horas
 def calcular_horas(minutos):
     horas = minutos / MINUTOS_POR_HORA
     return round(horas, 2)
 
 
-# Nuevo en Version 3.0:
-# Funcion para clasificar la duracion de la observacion
+# Version 3.0: clasificar la duracion de la observacion
 def clasificar_observacion(minutos):
-
-    # Nueva decision para clasificar la duracion de la observacion
     if minutos >= 60:
-        tipo_observacion = "Observacion larga"
-
+        return "Observacion larga"
     elif minutos >= 30:
-        tipo_observacion = "Observacion moderada"
-
+        return "Observacion moderada"
     else:
-        tipo_observacion = "Observacion corta"
-
-    return tipo_observacion
+        return "Observacion corta"
 
 
-# Nuevo en Version 3.0:
-# Funcion para mostrar el resumen de la observacion
+# Version 3.0: mostrar el resumen de la observacion
 def mostrar_resumen(nombre, objeto, minutos, horas, tipo_observacion):
     print("\n--- Registro de Observacion ---")
     print("Usuario:", nombre)
@@ -38,19 +29,48 @@ def mostrar_resumen(nombre, objeto, minutos, horas, tipo_observacion):
     print("Tipo de observacion:", tipo_observacion)
 
 
-# Nueva variable para controlar la repeticion del programa
+# Version 4.0: arreglo unidimensional con cinco objetos
+objetos = ["Luna", "Marte", "Jupiter", "Venus", "Mercurio"]
+print("Objetos disponibles:", objetos)
+
+# Acceder a los cinco elementos mediante sus indices
+print("Primer objeto:", objetos[0])
+print("Segundo objeto:", objetos[1])
+print("Tercer objeto:", objetos[2])
+print("Cuarto objeto:", objetos[3])
+print("Quinto objeto:", objetos[4])
+
+# Version 4.0: modificar un elemento existente
+objetos[4] = "Saturno"
+print("Catalogo actualizado:", objetos)
+
+# Version 4.0: recorrer el arreglo
+for objeto_disponible in objetos:
+    print(objeto_disponible)
+
+# Version 4.0: almacenar las observaciones ingresadas
+observaciones = []
 continuar = "s"
 
-
-# Nuevo ciclo para permitir registrar mas de una observacion
 while continuar == "s":
+    nombre = input("\nNombre del usuario: ")
+    objeto = input("Objeto astronomico observado: ").strip()
 
-    nombre = input("Nombre del usuario: ")
-    objeto = input("Objeto astronomico observado: ")
-    minutos = int(input("Minutos de observacion: "))
+    # Version 4.0: verificar que el nombre del objeto tenga caracteres
+    while objeto == "":
+        objeto = input("Escribe el nombre del objeto: ").strip()
 
-    # Nuevo en Version 3.0:
-    # Se llaman las funciones para procesar los datos
+    # Version 4.0: validar los minutos ingresados
+    while True:
+        try:
+            minutos = int(input("Minutos de observacion: "))
+            if minutos > 0:
+                break
+            print("Escribe una cantidad mayor que cero.")
+        except ValueError:
+            print("Escribe los minutos como un numero entero.")
+
+    # Conservar las funciones de la version anterior
     horas = calcular_horas(minutos)
     tipo_observacion = clasificar_observacion(minutos)
 
@@ -62,7 +82,38 @@ while continuar == "s":
         tipo_observacion
     )
 
-    # Nueva entrada para decidir si se repite el registro
-    continuar = input(
-        "\nDesea registrar otra observacion? (s/n): "
-    ).lower()
+    # Version 4.0: longitud y acceso mediante indice
+    print("\nCantidad de caracteres:", len(objeto))
+    print("Primer caracter:", objeto[0])
+
+    # Version 4.0: recorrer los caracteres
+    print("Caracteres del nombre:")
+    for caracter in objeto:
+        print(caracter)
+
+    # Version 4.0: buscar texto y convertir a mayusculas
+    print("Contiene la palabra luna:", "luna" in objeto.lower())
+    print("Nombre en mayusculas:", objeto.upper())
+
+    # Version 4.0: añadir una fila con tres datos
+    observaciones.append([objeto, minutos, horas])
+
+    # Version 4.0: completar las dos filas requeridas
+    if len(observaciones) < 2:
+        print("\nRegistra otra observacion para completar las dos filas.")
+    else:
+        continuar = input(
+            "\nDesea registrar otra observacion? (s/n): "
+        ).strip().lower()
+
+# Version 4.0: consultar un dato mediante dos indices
+print("\nObjeto de la primera fila:", observaciones[0][0])
+
+# Version 4.0: recorrer la estructura mostrando una fila por observacion
+print("\nTabla de observaciones")
+print("Objeto Minutos Horas")
+
+for fila in observaciones:
+    for dato in fila:
+        print(dato, end=" ")
+    print()
